@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// importamos el contexto general que esta creado 
+import MyContext from "./MyContext"
+// importamos el useState
+import { useState } from "react"
+
+// importamos el par de componentes que estan en la raiz del proyecto
+import Component1 from "./Component1"
+import Component2 from "./Component2"
+
 
 function App() {
+  // declaramos el estado local del componente y su funcion de seteo
+  const [data, setData] = useState(0)
+  // compartimos el estado local y su funcion de seteo
+  const sharedState = {data, setData}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+       {/* Definimos el provider de MyContext para envolver los componentes que van a consumir el contexto y el valor es igual al estado y funcion compartida */}
+      <MyContext.Provider value={sharedState}>
+        <Component1 />
+        <Component2 />
+      </MyContext.Provider>
+    </>
+  )
 }
 
 export default App;
+
